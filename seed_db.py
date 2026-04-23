@@ -132,14 +132,15 @@ def main():
     now_utc = datetime.datetime.now(datetime.timezone.utc)
     summaries = []
 
-    for patient_id, (purpose, content) in CLINICAL_SUMMARIES.items():
-        summaries.append({
-            "Patient_ID":           patient_id,
-            "Content_Data":         content,
-            "Context_Type":         "Clinical",
-            "Purpose_Name":         purpose,
-            "Generated_Timestamp":  now_utc.isoformat()
-        })
+    for patient_id, summary_list in CLINICAL_SUMMARIES.items():
+        for purpose, content in summary_list:
+            summaries.append({
+                "Patient_ID":           patient_id,
+                "Content_Data":         content,
+                "Context_Type":         "Clinical",
+                "Purpose_Name":         purpose,
+                "Generated_Timestamp":  now_utc.isoformat()
+            })
 
     for patient_id, (purpose, content) in [(s[0], (s[1], s[2])) for s in RESEARCH_SUMMARIES]:
         summaries.append({
