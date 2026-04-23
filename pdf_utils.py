@@ -29,6 +29,12 @@ def generate_pdf(patient_id, title, content):
     
     pdf.set_font("Helvetica", size=11)
     
+    # Ensure content is a string
+    if isinstance(content, list):
+        content = "\n".join(str(item) for item in content)
+    elif not isinstance(content, str):
+        content = str(content)
+        
     # Very basic markdown stripping for PDF display
     clean_content = content.replace('**', '').replace('### ', '')
     safe_content = sanitize_text(clean_content)
